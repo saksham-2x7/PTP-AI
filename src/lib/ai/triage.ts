@@ -60,14 +60,22 @@ export async function analyzeFieldNotes(formData: FormData): Promise<TriageData>
     }
 
     try {
-        const response = await ai.models.generateContent({
-            model: 'gemini-3.8-flash',
-            contents: parts, // Pass parts directly
-            config: {
-                responseMimeType: "application/json",
-                responseSchema: responseSchema,
-            }
-        });
+        // Enterprise Circuit Breaker Pattern (5000ms Timeout)
+        const timeoutPromise = new Promise((_, reject) => 
+            setTimeout(() => reject(new Error("CIRCUIT_BREAKER_TRIPPED")), 5000)
+        );
+        
+        const response = await Promise.race([
+            ai.models.generateContent({
+                model: 'gemini-3.8-flash',
+                contents: parts,
+                config: {
+                    responseMimeType: "application/json",
+                    responseSchema: responseSchema,
+                }
+            }),
+            timeoutPromise
+        ]) as any;
 
         if (!response.text) throw new Error("No response from Gemini");
         const data = JSON.parse(response.text);
