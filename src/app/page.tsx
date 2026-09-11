@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Activity, Server, Ambulance, UploadCloud, FileAudio, FileImage, ShieldCheck, ShieldAlert, CheckCircle2, Zap } from 'lucide-react';
+import { Activity, Server, Ambulance, UploadCloud, FileAudio, FileImage, ShieldCheck, ShieldAlert, CheckCircle2, Zap, Mic } from 'lucide-react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { CyberScanner } from '@/components/ui/CyberScanner';
 import { MCPMatrix } from '@/components/ui/MCPMatrix';
@@ -17,6 +17,41 @@ export default function DispatcherTerminal() {
     const [status, setStatus] = useState<'idle' | 'processing_proposal' | 'proposed' | 'authorizing' | 'success' | 'security_breach' | 'error'>('idle');
     const [result, setResult] = useState<DispatchResponse | null>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
+    const [isListening, setIsListening] = useState(false);
+    const recognitionRef = useRef<any>(null);
+
+    const toggleDictation = () => {
+        if (isListening) {
+            recognitionRef.current?.stop();
+            setIsListening(false);
+            return;
+        }
+        
+        const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+        if (!SpeechRecognition) {
+            alert("Microphone dictation is only supported in Chrome/Edge.");
+            return;
+        }
+
+        const recognition = new SpeechRecognition();
+        recognition.continuous = true;
+        recognition.interimResults = true;
+        recognitionRef.current = recognition;
+
+        recognition.onstart = () => setIsListening(true);
+        recognition.onresult = (event: any) => {
+            let finalTranscript = '';
+            for (let i = event.resultIndex; i < event.results.length; ++i) {
+                if (event.results[i].isFinal) finalTranscript += event.results[i][0].transcript;
+            }
+            if (finalTranscript) {
+                setNotes(prev => prev + (prev.endsWith(' ') || prev.length === 0 ? '' : ' ') + finalTranscript.trim() + ' ');
+            }
+        };
+        recognition.onerror = () => setIsListening(false);
+        recognition.onend = () => setIsListening(false);
+        recognition.start();
+    };
     const shouldReduceMotion = useReducedMotion();
 
     const anim = {
@@ -121,7 +156,18 @@ export default function DispatcherTerminal() {
                         <CyberScanner />
                         <form onSubmit={handlePropose} className="space-y-6 flex-1 flex flex-col mt-6">
                             <div className="space-y-3 flex-1 flex flex-col">
-                                <label htmlFor="notes-input" className="text-xs font-bold text-neutral-500 uppercase tracking-widest block">Field Transmissions (Text)</label>
+                                <div className="flex justify-between items-center">
+        <label htmlFor="notes-input" className="text-xs font-bold text-neutral-500 uppercase tracking-widest block">Field Transmissions (Live)</label>
+        <Button 
+            type="button" 
+            variant="ghost" 
+            size="sm"
+            onClick={toggleDictation}
+            className={`h-6 px-2 text-xs font-mono ${isListening ? 'bg-red-950/50 text-red-400 animate-pulse border border-red-900' : 'text-neutral-500 hover:text-white'}`}
+        >
+            <Mic className="w-3 h-3 mr-1" /> {isListening ? 'RECORDING...' : 'DICTATE'}
+        </Button>
+    </div>
                                 <Textarea 
                                     id="notes-input"
                                     placeholder="Paste field notes here..." 
