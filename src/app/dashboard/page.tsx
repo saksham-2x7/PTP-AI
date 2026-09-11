@@ -7,7 +7,7 @@ import Link from 'next/link';
 export const dynamic = 'force-dynamic';
 
 export default async function ERDashboard() {
-    let records: any[] = [];
+    let records: unknown[] = [];
     let errorMsg = null;
 
     try {
@@ -78,7 +78,7 @@ export default async function ERDashboard() {
                                         </TableCell>
                                         <TableCell className="font-mono text-xs text-blue-200">{r.triageData.patientVitals}</TableCell>
                                         <TableCell className="font-mono text-xs text-green-400">
-                                            {r.erpData.bedId} // {r.erpData.assignedAmbulance}
+                                            {r.erpData.bedId} {/*  {r.erpData.assignedAmbulance} */}
                                         </TableCell>
                                     </TableRow>
                                 ))
