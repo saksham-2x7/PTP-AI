@@ -61,8 +61,8 @@ export async function proposeDispatch(formData: FormData): Promise<DispatchRespo
 export async function confirmDispatch(triageData: TriageData, erpData: ERPData): Promise<DispatchResponse> {
     erpData.status = "RESOURCES_LOCKED";
     try {
-        const { db } = await import('../data/db');
-        await db.collection('dispatches').add({
+        const { db, collection, addDoc } = await import('../data/db');
+        await addDoc(collection(db, 'dispatches'), {
             triageData,
             erpData,
             timestamp: new Date().toISOString()

@@ -1,4 +1,4 @@
-import { db } from '@/lib/data/db';
+import { db, collection, getDocs, query, orderBy, limit } from '@/lib/data/db';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { Activity, ArrowLeft } from 'lucide-react';
@@ -11,7 +11,8 @@ export default async function ERDashboard() {
     let errorMsg = null;
 
     try {
-        const snapshot = await db.collection('dispatches').orderBy('timestamp', 'desc').limit(15).get();
+        const q = query(collection(db, 'dispatches'), orderBy('timestamp', 'desc'), limit(15));
+        const snapshot = await getDocs(q);
         records = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     } catch {
         errorMsg = "Database connection offline. Showing mocked data.";
