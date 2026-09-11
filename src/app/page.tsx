@@ -127,7 +127,7 @@ export default function DispatcherTerminal() {
     };
 
     return (
-        <main className="flex-1 p-6 lg:p-10 flex flex-col min-h-0 relative z-10">
+        <main className="flex-1 p-6 lg:p-10 flex flex-col min-h-0 relative z-10" aria-label="ER Triage Application">
             <header className="mb-8 flex flex-col md:flex-row md:justify-between md:items-end gap-4 shrink-0">
                 <div>
                     <h2 className="text-3xl font-bold tracking-tight text-white flex items-center gap-3">
@@ -146,7 +146,7 @@ export default function DispatcherTerminal() {
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 flex-1 min-h-0">
                 {/* Input Panel */}
-                <Card className="bg-neutral-950/40 backdrop-blur-xl border-white/10 shadow-2xl flex flex-col h-full">
+                <Card aria-label="Terminal Output" className="bg-neutral-950/40 backdrop-blur-xl border-white/10 shadow-2xl flex flex-col h-full">
                     <CardHeader className="border-b border-white/5 pb-4 shrink-0">
                         <CardTitle className="text-white text-lg font-mono flex items-center gap-2">
                             <UploadCloud className="w-5 h-5 text-neutral-400" /> MULTIMODAL INGEST
