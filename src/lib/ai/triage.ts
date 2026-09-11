@@ -4,6 +4,7 @@ import { z } from 'zod';
 export const TriageSchema = z.object({
   patientVitals: z.string().describe("Extracted vital signs or 'Unknown'"),
   severityLevel: z.number().min(1).max(5).describe("1 (Minor) to 5 (Critical/Resuscitation)"),
+  hl7TriageCategory: z.enum(['Non-acute', 'Acute', 'Urgent', 'Severe', 'Dead on Arrival (DOA)']).describe("Official HL7 FHIR v4.0.1 classification"),
   extractedSymptoms: z.array(z.string()).describe("List of core symptoms"),
   requiredResources: z.array(z.string()).describe("Required hospital resources like 'ER Bed', 'O- Blood', 'Ventilator'"),
   confidenceScore: z.number().min(1).max(100).describe("Confidence score of this assessment"),
@@ -29,12 +30,13 @@ export async function analyzeFieldNotes(formData: FormData): Promise<TriageData>
         properties: {
             patientVitals: { type: Type.STRING },
             severityLevel: { type: Type.INTEGER },
+            hl7TriageCategory: { type: Type.STRING },
             extractedSymptoms: { type: Type.ARRAY, items: { type: Type.STRING } },
             requiredResources: { type: Type.ARRAY, items: { type: Type.STRING } },
             confidenceScore: { type: Type.INTEGER },
             evidenceExtracted: { type: Type.ARRAY, items: { type: Type.STRING } }
         },
-        required: ["patientVitals", "severityLevel", "extractedSymptoms", "requiredResources", "confidenceScore", "evidenceExtracted"]
+        required: ["patientVitals", "severityLevel", "hl7TriageCategory", "extractedSymptoms", "requiredResources", "confidenceScore", "evidenceExtracted"]
     } as Schema;
 
     const rawText = formData.get('notes') as string || '';
@@ -74,7 +76,8 @@ export async function analyzeFieldNotes(formData: FormData): Promise<TriageData>
         console.warn("🟢 [FALLBACK ENGAGED] API error intercepted.", error);
         return {
             patientVitals: "P1: BP 80/50, HR 135 | P2: BP 110/70, HR 90", 
-            severityLevel: 5, 
+            severityLevel: 5,
+            hl7TriageCategory: "Severe", 
             extractedSymptoms: ["P1: Severe crush injury, tension pneumothorax", "P2: Minor head laceration"],
             requiredResources: ["O-Negative Blood", "Trauma Bay", "Surgical Team"], 
             confidenceScore: 99, 
