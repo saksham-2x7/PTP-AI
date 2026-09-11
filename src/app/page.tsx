@@ -22,7 +22,7 @@ export default function DispatcherTerminal() {
         initial: { opacity: 0, y: shouldReduceMotion ? 0 : 10 },
         animate: { opacity: 1, y: 0 },
         exit: { opacity: 0, y: shouldReduceMotion ? 0 : -10 },
-        transition: { duration: 0.3, ease: 'easeOut' }
+        transition: { duration: 0.3, ease: 'easeOut' as const }
     };
 
     // Hotkey for Demo: Ctrl/Cmd + Shift + D
