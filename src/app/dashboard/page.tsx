@@ -7,7 +7,7 @@ import Link from 'next/link';
 export const dynamic = 'force-dynamic';
 
 export default async function ERDashboard() {
-    let records: unknown[] = [];
+    let records: any[] = [];
     let errorMsg = null;
 
     try {
