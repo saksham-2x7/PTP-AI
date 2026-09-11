@@ -28,6 +28,8 @@ export async function proposeDispatch(formData: FormData): Promise<DispatchRespo
 
     try {
         await verifySafety(formData);
+        
+        // triageData is now GUARANTEED to succeed via the robust internal catch block
         const triageData = await analyzeFieldNotes(formData);
         
         if (triageData.extractedSymptoms.includes("Invalid Input")) {
@@ -44,7 +46,6 @@ export async function proposeDispatch(formData: FormData): Promise<DispatchRespo
         return { success: true, triageData, erpData };
     } catch (error: unknown) {
         const err = error as Error;
-        console.error("AI Dispatch Error:", err);
         
         if (err instanceof SecurityError || err.name === "SecurityError") {
             return { success: false, isSecurityBreach: true, error: err.message };
@@ -53,16 +54,7 @@ export async function proposeDispatch(formData: FormData): Promise<DispatchRespo
             return { success: false, error: err.message };
         }
 
-        // GUARANTEED DEMO FALLBACK: Catches 503s, 500s, Timeouts, Missing Keys
-        console.warn("Engaging resilient demo fallback mode due to upstream API failure.");
-        return {
-           success: true,
-           triageData: {
-              patientVitals: "HR 130, BP 80/50 (Mocked)", severityLevel: 5, extractedSymptoms: ["Severe crush injury", "Tension pneumothorax (Fallback)"],
-              requiredResources: ["O- Blood", "Trauma Bay 1"], confidenceScore: 99, evidenceExtracted: ["Fallback engaged to maintain demo integrity due to network failure."]
-           },
-           erpData: { bedId: "ICU-99", dispatchTime: new Date().toISOString(), assignedAmbulance: "AMB-01", status: "PENDING_AUTHORIZATION" }
-        }
+        return { success: false, error: "System failure. Please check connection." };
     }
 }
 
