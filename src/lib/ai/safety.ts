@@ -37,7 +37,7 @@ export async function verifySafety(formData: FormData): Promise<void> {
 
     try {
         const response = await ai.models.generateContent({
-            model: 'gemini-3.8-flash',
+            model: 'gemini-3.7-flash',
             contents: contents,
             config: { responseMimeType: "application/json", responseSchema: responseSchema }
         });
