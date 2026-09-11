@@ -8,6 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { Activity, Server, Ambulance, UploadCloud, FileAudio, FileImage, ShieldCheck, ShieldAlert, CheckCircle2, Zap } from 'lucide-react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { CyberScanner } from '@/components/ui/CyberScanner';
+import { MCPMatrix } from '@/components/ui/MCPMatrix';
 
 export default function DispatcherTerminal() {
     const [notes, setNotes] = useState('');
@@ -157,6 +158,7 @@ export default function DispatcherTerminal() {
                                 {status === 'processing_proposal' ? '>> INGESTING STREAM...' : '// INITIATE ORCHESTRATION'}
                             </Button>
                         </form>
+                        <MCPMatrix isProcessing={status === 'processing_proposal'} />
                     </CardContent>
                 </Card>
 
