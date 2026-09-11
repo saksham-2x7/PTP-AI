@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Server, Database, Globe, Shield, Cpu } from 'lucide-react';
+import { Server, Database, Globe, Shield } from 'lucide-react';
 
 const MCP_NODES = [
   { name: "mcp://fema.gov/disaster-db", icon: Globe, color: "text-blue-500" },
@@ -18,7 +18,7 @@ const MCP_NODES = [
   { name: "mcp://dhs/homeland-security-feed", icon: Shield, color: "text-red-600" },
   { name: "mcp://usgs/seismic-sensors", icon: Globe, color: "text-orange-500" },
   { name: "mcp://dot/highway-infrastructure", icon: Server, color: "text-yellow-600" },
-  { name: "mcp://national-grid/power-status", icon: Cpu, color: "text-yellow-400" }
+  { name: "mcp://national-grid/power-status", icon: Server, color: "text-yellow-400" }
 ];
 
 export function MCPMatrix({ isProcessing }: { isProcessing: boolean }) {
@@ -45,16 +45,7 @@ export function MCPMatrix({ isProcessing }: { isProcessing: boolean }) {
 
   return (
     <div className="w-full h-40 bg-black/60 border border-white/10 rounded-lg overflow-hidden flex flex-col mt-6 relative shadow-[inset_0_0_20px_rgba(0,0,0,0.8)]">
-      <div className="absolute top-0 left-0 w-full h-6 bg-blue-950/40 border-b border-blue-900/50 flex items-center px-3 z-10">
-        <Cpu className="w-3 h-3 text-blue-500 mr-2" />
-        <span className="text-[9px] font-bold tracking-widest text-blue-400 uppercase">Live MCP Context Resolution</span>
-        <div className="ml-auto flex gap-1">
-          <div className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
-          <div className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse delay-75" />
-        </div>
-      </div>
-      
-      <div className="flex-1 p-3 pt-8 flex flex-col gap-1 overflow-hidden relative">
+      <div className="flex-1 p-3 flex flex-col gap-1 overflow-hidden relative">
         {!isProcessing && (
           <div className="absolute inset-0 flex items-center justify-center text-[10px] font-mono text-neutral-600">
             [ MCP NETWORK IDLE - AWAITING INGEST ]
