@@ -62,7 +62,7 @@ export default async function DashboardPage() {
                                     <td className="px-6 py-4 font-mono text-xs text-neutral-400 whitespace-nowrap">
                                         <div className="flex items-center gap-2">
                                             <Clock className="w-3 h-3" />
-                                            <span suppressHydrationWarning>{new Date(record.timestamp).toLocaleTimeString()}</span>
+                                            <span suppressHydrationWarning>{new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Kolkata', hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true }).format(new Date(record.timestamp))}</span>
                                         </div>
                                     </td>
                                     <td className="px-6 py-4">
