@@ -13,24 +13,27 @@ export type DispatchResponse = {
 }
 
 export async function proposeDispatch(formData: FormData): Promise<DispatchResponse> {
-    const notes = formData.get('notes') as string;
+    const notes = formData.get('notes') as string || '';
+    const trimmedNotes = notes.trim();
     const media = formData.getAll('media') as File[];
+    const hasMedia = media.length > 0 && media.some(f => f.size > 0);
     
-    if ((!notes || notes.trim().length < 5) && media.length === 0) {
-        return { success: false, error: "Input empty. Please provide text or media details." };
+    if (trimmedNotes.length === 0 && !hasMedia) {
+        return { success: false, error: "Transmission empty. Please enter field notes or attach media." };
+    }
+    
+    if (trimmedNotes.length > 0 && trimmedNotes.length <= 10 && !hasMedia) {
+        return { success: false, error: "Transmission too brief. Please provide actionable clinical observations, vitals, or scene notes." };
     }
 
     try {
-        // M3: Safety Shield Pre-processing
         await verifySafety(formData);
-
         const triageData = await analyzeFieldNotes(formData);
         
         if (triageData.extractedSymptoms.includes("Invalid Input")) {
              return { success: false, error: "Unrecognized medical input. Please provide valid paramedic notes." };
         }
 
-        // Generate PROPOSED ERP Data (Not written to DB yet)
         const erpData = {
             bedId: triageData.severityLevel >= 4 ? `ICU-${Math.floor(Math.random() * 100)}` : `ER-${Math.floor(Math.random() * 100)}`,
             dispatchTime: new Date().toISOString(),
@@ -62,7 +65,6 @@ export async function proposeDispatch(formData: FormData): Promise<DispatchRespo
 
 export async function confirmDispatch(triageData: TriageData, erpData: ERPData): Promise<DispatchResponse> {
     erpData.status = "RESOURCES_LOCKED";
-    
     try {
         const { db } = await import('../data/db');
         await db.collection('dispatches').add({
@@ -73,6 +75,5 @@ export async function confirmDispatch(triageData: TriageData, erpData: ERPData):
     } catch (dbError) {
         console.error("Firestore persistence skipped (mocking for demo):", dbError);
     }
-    
     return { success: true, triageData, erpData };
 }

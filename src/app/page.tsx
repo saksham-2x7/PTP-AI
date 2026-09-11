@@ -214,7 +214,7 @@ export default function DispatcherTerminal() {
                                     <motion.div key="error" {...anim} className="absolute inset-6 p-4 bg-yellow-950/50 border border-yellow-900 text-yellow-200 rounded-md flex gap-3 items-start h-fit">
                                         <AlertTriangle className="shrink-0 mt-0.5" aria-hidden="true" />
                                         <div>
-                                            <h4 className="font-semibold text-yellow-500 font-mono">SYSTEM ERROR</h4>
+                                            <h4 className="font-semibold text-yellow-500 font-mono">SYSTEM NOTICE</h4>
                                             <p className="text-sm mt-1 font-mono">{result.error}</p>
                                         </div>
                                     </motion.div>
