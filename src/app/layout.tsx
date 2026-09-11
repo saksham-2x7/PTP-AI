@@ -7,8 +7,23 @@ import { AnimatedBackground } from "@/components/ui/AnimatedBackground";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "MediBridge | Emergency Orchestrator",
-  description: "Universal Bridge between human intent and complex systems.",
+  title: "MediBridge | ER Orchestration",
+  description: "AI-powered emergency response and mass casualty orchestration platform.",
+  manifest: "/manifest.json",
+  openGraph: {
+    title: "MediBridge ER Orchestration",
+    description: "Universal bridge between human intent and complex emergency systems.",
+    url: "https://medibridge.live",
+    siteName: "MediBridge",
+    images: [{ url: "https://medibridge.live/og.png", width: 1200, height: 630 }],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "MediBridge ER Orchestration",
+    description: "AI-powered emergency response platform.",
+    images: ["https://medibridge.live/og.png"],
+  }
 };
 
 export default function RootLayout({
