@@ -21,7 +21,7 @@ export async function generateShiftSummary(): Promise<{ success: boolean; summar
         const prompt = `You are an elite emergency medical analytics AI. Analyze the following recent dispatch records and provide a concise, 2-paragraph "Shift Summary Report" evaluating the ER's trauma load, common injury patterns, and resource bottlenecks. Do not use pleasantries. Output direct tactical analysis.\n\nDATA:\n${dataDump}`;
 
         const response = await ai.models.generateContent({
-            model: 'gemini-3.7-flash',
+            model: 'gemini-1.5-pro',
             contents: prompt
         });
 
