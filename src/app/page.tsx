@@ -7,6 +7,7 @@ import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Activity, Server, Ambulance, UploadCloud, FileAudio, FileImage, ShieldCheck, ShieldAlert, CheckCircle2, Zap } from 'lucide-react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
+import { CyberScanner } from '@/components/ui/CyberScanner';
 
 export default function DispatcherTerminal() {
     const [notes, setNotes] = useState('');
@@ -116,7 +117,8 @@ export default function DispatcherTerminal() {
                         </CardTitle>
                     </CardHeader>
                     <CardContent className="pt-6 flex-1 flex flex-col min-h-0 overflow-y-auto">
-                        <form onSubmit={handlePropose} className="space-y-6 flex-1 flex flex-col">
+                        <CyberScanner />
+                        <form onSubmit={handlePropose} className="space-y-6 flex-1 flex flex-col mt-6">
                             <div className="space-y-3 flex-1 flex flex-col">
                                 <label htmlFor="notes-input" className="text-xs font-bold text-neutral-500 uppercase tracking-widest block">Field Transmissions (Text)</label>
                                 <Textarea 
