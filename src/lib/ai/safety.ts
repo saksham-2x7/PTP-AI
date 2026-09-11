@@ -45,7 +45,7 @@ Output a JSON object with 'classification' and 'reason'.\n\nInput: ${textNotes}`
 
     try {
         const response = await ai.models.generateContent({
-            model: 'gemini-3.7-flash',
+            model: 'gemini-3.8-flash',
             contents: contents,
             config: { responseMimeType: "application/json", responseSchema: responseSchema }
         });

@@ -49,7 +49,7 @@ export async function analyzeFieldNotes(formData: FormData): Promise<TriageData>
 
     try {
         const response = await ai.models.generateContent({
-            model: 'gemini-3.7-flash',
+            model: 'gemini-3.8-flash',
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             contents: contents as any,
             config: {

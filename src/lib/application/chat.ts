@@ -19,7 +19,7 @@ export async function chatWithGemini(history: ChatMessage[], newMessage: string)
         const finalPrompt = `${systemPrompt}\n\nCONVERSATION HISTORY:\n${context}\n\nUSER: ${newMessage}\nMODEL:`;
 
         const response = await ai.models.generateContent({
-            model: 'gemini-3.7-flash',
+            model: 'gemini-3.8-flash',
             contents: finalPrompt
         });
 
