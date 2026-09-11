@@ -9,6 +9,10 @@ import { Activity, Server, Ambulance, UploadCloud, FileAudio, FileImage, ShieldC
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { CyberScanner } from '@/components/ui/CyberScanner';
 import { MCPMatrix } from '@/components/ui/MCPMatrix';
+import DOMPurify from 'isomorphic-dompurify';
+import dynamic from 'next/dynamic';
+
+const IncidentMap = dynamic(() => import('@/components/IncidentMap'), { ssr: false, loading: () => <div className="w-full h-48 bg-neutral-900 animate-pulse rounded-lg mt-4"></div> });
 
 export default function DispatcherTerminal() {
     const [notes, setNotes] = useState('');
