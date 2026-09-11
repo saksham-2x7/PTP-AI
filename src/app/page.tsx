@@ -223,36 +223,36 @@ export default function DispatcherTerminal() {
                                 {(status === 'proposed' || status === 'authorizing' || status === 'success') && result?.triageData && (
                                     <motion.div key="success" {...anim} className="absolute inset-6 space-y-6 w-full">
                                         <div className="space-y-2">
-                                            <h3 className="text-xs font-bold text-blue-500 uppercase tracking-widest flex justify-between">
+                                            <h3 className="text-xs font-bold text-blue-500 uppercase tracking-widest flex flex-col md:flex-row md:justify-between items-start md:items-center gap-2">
                                                 <span>AI Synthesis Proposal</span>
-                                                <span className="text-neutral-500 flex items-center gap-1"><ShieldCheck className="w-3 h-3 text-green-500"/> Verified Safe</span>
+                                                <span className="text-neutral-500 flex items-center gap-1 shrink-0"><ShieldCheck className="w-3 h-3 text-green-500"/> Verified Safe</span>
                                             </h3>
                                             <div className="bg-black/60 p-5 rounded-md border border-neutral-800 space-y-4">
-                                                <div className="flex justify-between items-start border-b border-neutral-800/50 pb-4">
-                                                    <div>
+                                                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4 border-b border-neutral-800/50 pb-4">
+                                                    <div className="flex-1 min-w-0">
                                                         <p className="text-xs text-neutral-500 uppercase font-bold mb-1">Vitals</p>
-                                                        <p className="font-mono text-blue-100 text-lg">{result.triageData.patientVitals}</p>
+                                                        <p className="font-mono text-blue-100 text-lg break-words whitespace-normal leading-tight">{result.triageData.patientVitals}</p>
                                                     </div>
-                                                    <div className="text-right">
+                                                    <div className="sm:text-right shrink-0">
                                                         <p className="text-xs text-neutral-500 uppercase font-bold mb-1">Confidence</p>
                                                         <p className="font-mono text-green-400 text-xl">{result.triageData.confidenceScore}%</p>
                                                     </div>
                                                 </div>
 
-                                                <div className="grid grid-cols-2 gap-4">
-                                                    <div>
+                                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 w-full">
+                                                    <div className="min-w-0">
                                                         <p className="text-xs text-neutral-500 uppercase font-bold mb-2">Symptoms</p>
-                                                        <div className="flex flex-wrap gap-1">
+                                                        <div className="flex flex-wrap gap-2">
                                                             {result.triageData.extractedSymptoms.map((sym, i) => (
-                                                                <Badge key={i} variant="secondary" className="bg-neutral-800/80 text-neutral-300 font-mono text-xs">{sym}</Badge>
+                                                                <Badge key={i} variant="secondary" className="bg-neutral-800/80 text-neutral-300 font-mono text-xs break-words whitespace-normal text-left h-auto py-1">{sym}</Badge>
                                                             ))}
                                                         </div>
                                                     </div>
-                                                    <div>
+                                                    <div className="min-w-0">
                                                         <p className="text-xs text-neutral-500 uppercase font-bold mb-2">Required Resources</p>
-                                                        <div className="flex flex-wrap gap-1">
+                                                        <div className="flex flex-wrap gap-2">
                                                             {result.triageData.requiredResources.map((res, i) => (
-                                                                <Badge key={i} variant="outline" className="border-red-900/50 text-red-400 font-mono text-xs">{res}</Badge>
+                                                                <Badge key={i} variant="outline" className="border-red-900/50 text-red-400 font-mono text-xs break-words whitespace-normal text-left h-auto py-1">{res}</Badge>
                                                             ))}
                                                         </div>
                                                     </div>
