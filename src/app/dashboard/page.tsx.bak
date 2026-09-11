@@ -49,7 +49,7 @@ export default async function ERDashboard() {
                 )}
 
                 <div className="border border-neutral-800 rounded-lg overflow-hidden bg-black/50">
-                    <Table aria-label="Emergency Room Live Dispatch Board">
+                    <Table>
                         <TableHeader className="bg-neutral-900/80">
                             <TableRow className="border-neutral-800 hover:bg-neutral-900/80">
                                 <TableHead className="text-neutral-400 font-mono text-xs">DISPATCH_ID</TableHead>
