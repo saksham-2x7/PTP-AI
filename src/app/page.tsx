@@ -74,7 +74,7 @@ export default function DispatcherTerminal() {
             } else if (authError.code === 'auth/operation-not-allowed') {
                 setAuthError("This sign-in provider is disabled. Please enable it in the Firebase Console.");
             } else {
-                setAuthError(authError.message);
+                setAuthError(authError.message || "An unknown authentication error occurred.");
             }
         }
     };
