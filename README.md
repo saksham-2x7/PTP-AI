@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<div align="center">
+  <h1>🚨 MediBridge</h1>
+  <p><b>World-Class Multimodal AI Orchestration for Emergency Response</b></p>
+  
+  [![Built with Next.js](https://img.shields.io/badge/Built_with-Next.js_14-black?logo=next.js)](https://nextjs.org/)
+  [![Powered by Gemini](https://img.shields.io/badge/AI_Engine-Gemini_3.8_Flash-blue?logo=google)](https://deepmind.google/technologies/gemini/)
+  [![Firebase](https://img.shields.io/badge/Database-Firebase_Cloud_Firestore-orange?logo=firebase)](https://firebase.google.com/)
+  [![UI](https://img.shields.io/badge/UI-Aceternity_%7C_Framer_Motion-purple)](#)
+</div>
 
-## Getting Started
+---
 
-First, run the development server:
+## 👁️ The Vision
+In high-stakes emergency situations, paramedics rely on chaotic, unstructured data—frantic radio calls, scribbled notes, and quick scene photos. Hospitals require structured telemetry to allocate trauma bays and resources before the ambulance arrives. 
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+**MediBridge** is a universal bridging architecture that ingests raw, multimodal field transmissions (Audio, Text, Images), instantly synthesizes the trauma load using advanced AI, and routes actionable intelligence to a live ER Command Center.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 Key Features
+- **🎙️ Multimodal Ingest:** Native browser Web Speech API for live dictation, combined with image ingestion for comprehensive triage analysis.
+- **⚡ AI Triage Engine:** Powered by Google's bleeding-edge **Gemini 3.8 Flash**, processing complex trauma data in milliseconds.
+- **🛡️ Deterministic Fallbacks:** Engineered with prompt-injection shielding and fail-safe mock injections to guarantee 100% uptime during live API outages (503s) or rate limits (429s).
+- **🌐 MCP Orchestration Matrix:** High-performance, simulated Context Resolution matrix pulling from 40+ simulated global intelligence nodes.
+- **📊 Shift Analytics:** Autonomous, LLM-generated post-action reports summarizing ER traffic and resource bottlenecks.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 💻 Tech Stack
+* **Frontend:** Next.js (App Router), React Server Components, TypeScript.
+* **Styling & UI:** Tailwind CSS, Framer Motion, Glassmorphism Physics, Radix Primitives.
+* **Backend:** Vercel Edge Architecture, Server Actions.
+* **Database:** Firebase / Cloud Firestore (Real-time synchronization).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🛠️ Local Development
+1. Clone the repository:
+   \`\`\`bash
+   git clone https://github.com/saksham-2x7/PTP-AI.git
+   \`\`\`
+2. Install dependencies:
+   \`\`\`bash
+   npm install
+   \`\`\`
+3. Set up your `.env.local` file with your Gemini and Firebase credentials:
+   \`\`\`env
+   GEMINI_API_KEY="your_api_key_here"
+   NEXT_PUBLIC_FIREBASE_API_KEY="..."
+   # (Include the rest of your Firebase config keys)
+   \`\`\`
+4. Run the development server:
+   \`\`\`bash
+   npm run dev
+   \`\`\`
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+*Built for the PromptWars x Techverse Hackathon.*
