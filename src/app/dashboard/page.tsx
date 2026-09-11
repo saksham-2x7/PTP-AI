@@ -7,6 +7,7 @@ import Link from 'next/link';
 export const dynamic = 'force-dynamic';
 
 export default async function ERDashboard() {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let records: any[] = [];
     let errorMsg = null;
 
