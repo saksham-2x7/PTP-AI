@@ -30,13 +30,16 @@ export async function verifySafety(formData: FormData): Promise<void> {
 
 Output a JSON object with 'classification' and 'reason'.\n\nInput: ${textNotes}` }];
 
+    // Filter out mock UI files (tiny size) or invalid MIME types before sending to Gemini API
     for (const file of mediaFiles) {
-        if (file.size > 0) {
+        if (file.size > 100 && file.type && file.type !== "application/octet-stream") {
             const arrayBuffer = await file.arrayBuffer();
             const buffer = Buffer.from(arrayBuffer);
             contents.push({
-                inlineData: { data: buffer.toString("base64"), mimeType: file.type || "application/octet-stream" }
+                inlineData: { data: buffer.toString("base64"), mimeType: file.type }
             });
+        } else {
+            console.warn(`[SAFETY] Skipped invalid/mock media asset: ${file.name} (${file.size} bytes)`);
         }
     }
 
