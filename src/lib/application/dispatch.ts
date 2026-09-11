@@ -17,6 +17,12 @@ export type DispatchResponse = {
 // In-Memory Rate Limiter (Anti-DDoS)
 const rateLimitMap = new Map<string, { count: number, resetTime: number }>();
 
+/**
+ * Proposes a dispatch orchestration by validating input against AI safety layers and generating a triage report.
+ * Protected by DDoS rate limiting and immutable audit logging.
+ * @param formData - The raw user input from the terminal.
+ * @returns An orchestration result object containing triage details and status.
+ */
 export async function proposeDispatch(formData: FormData): Promise<DispatchResponse> {
     const notes = formData.get('notes') as string || '';
     const trimmedNotes = notes.trim();

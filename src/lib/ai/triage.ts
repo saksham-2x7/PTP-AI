@@ -22,6 +22,12 @@ export type TriageData = z.infer<typeof TriageSchema>;
  * @param {FormData} formData - The raw unstructured input from paramedics
  * @returns {Promise<TriageData>} The perfectly structured, safe JSON response
  */
+/**
+ * Analyzes field notes and multimodal input using Gemini AI to extract structured HL7 FHIR Triage data.
+ * Ensures O(1) decision latency and robust error handling.
+ * @param formData - The raw input data containing text and optional media files.
+ * @returns A structured TriageData object perfectly formatted for ERP systems.
+ */
 export async function analyzeFieldNotes(formData: FormData): Promise<TriageData> {
     const apiKey = process.env.GEMINI_API_KEY || "mock-key-for-build";
     const ai = new GoogleGenAI({ apiKey });

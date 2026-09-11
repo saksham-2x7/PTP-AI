@@ -129,7 +129,7 @@ export default function DispatcherTerminal() {
     };
 
     return (
-        <main className="flex-1 p-6 lg:p-10 flex flex-col min-h-0 relative z-10" aria-label="ER Triage Application">
+        <main role="main" aria-label="ER Triage Application" className="flex-1 p-6 lg:p-10 flex flex-col min-h-0 relative z-10">
             <header className="mb-8 flex flex-col md:flex-row md:justify-between md:items-end gap-4 shrink-0">
                 <div>
                     <h2 className="text-3xl font-bold tracking-tight text-white flex items-center gap-3">
