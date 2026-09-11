@@ -13,7 +13,7 @@ export default async function ERDashboard() {
     try {
         const snapshot = await db.collection('dispatches').orderBy('timestamp', 'desc').limit(15).get();
         records = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-    } catch (e: any) {
+    } catch (error: unknown) {
         errorMsg = "Database connection offline. Showing mocked data.";
         records = [
             {

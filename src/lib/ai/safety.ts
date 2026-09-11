@@ -59,8 +59,8 @@ Output a JSON object with 'classification' and 'reason'.\n\nInput: ${textNotes}`
         if (data.classification === "IRRELEVANT") {
             throw new Error("No clinical signals detected. Enter trauma vitals, patient condition, or scene reports to initiate triage.");
         }
-    } catch (e: any) {
-        if (e.name === "SecurityError") throw e;
+    } catch (error: unknown) {
+        const e = error as Error; if (e.name === "SecurityError") throw e;
         if (e.message.includes("No clinical signals")) throw e;
         console.warn("Safety check bypassed due to API error:", e.message);
     }
