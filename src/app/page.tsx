@@ -62,18 +62,19 @@ export default function DispatcherTerminal() {
         }
     };
 
-    const handleLogin = async (provider: any) => {
+    const handleLogin = async (provider: import("firebase/auth").AuthProvider) => {
         setAuthError(null);
         try {
             await signInWithPopup(auth, provider);
-        } catch (error: any) {
+        } catch (error: unknown) {
+            const authError = error as { code?: string; message?: string };
             console.error("Auth Error:", error);
-            if (error.code === 'auth/account-exists-with-different-credential') {
+            if (authError.code === 'auth/account-exists-with-different-credential') {
                 setAuthError("An account already exists with the same email address but different sign-in credentials.");
-            } else if (error.code === 'auth/operation-not-allowed') {
+            } else if (authError.code === 'auth/operation-not-allowed') {
                 setAuthError("This sign-in provider is disabled. Please enable it in the Firebase Console.");
             } else {
-                setAuthError(error.message);
+                setAuthError(authError.message);
             }
         }
     };
