@@ -26,9 +26,9 @@ export async function generateShiftSummary(): Promise<{ success: boolean; summar
         });
 
         return { success: true, summary: response.text || "Report generation failed." };
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.error("Analytics Error:", error);
         // Return the EXACT error to the UI so we can diagnose the Vercel issue
-        return { success: false, error: `Diagnostics: ${error.message || 'Unknown Server Error'}` };
+        return { success: false, error: `Diagnostics: ${(error as Error).message || 'Unknown Server Error'}` };
     }
 }

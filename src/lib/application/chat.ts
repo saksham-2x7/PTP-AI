@@ -28,9 +28,9 @@ export async function chatWithGemini(history: ChatMessage[], newMessage: string)
         }
 
         return { success: true, reply: response.text };
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.error("Intelligence Chat Error:", error);
         // Return the EXACT error to the UI so we can diagnose the Vercel issue
-        return { success: false, error: `Diagnostics: ${error.message || 'Unknown Server Error'}` };
+        return { success: false, error: `Diagnostics: ${(error as Error).message || 'Unknown Server Error'}` };
     }
 }
