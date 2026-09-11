@@ -25,7 +25,6 @@ export default function DispatcherTerminal() {
         transition: { duration: 0.3, ease: 'easeOut' as const }
     };
 
-    // Hotkey for Demo: Ctrl/Cmd + Shift + D
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
             if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === 'd') {
@@ -41,7 +40,7 @@ export default function DispatcherTerminal() {
         setDemoFiles(true);
         setStatus('idle');
         setResult(null);
-    };
+    }
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
@@ -92,16 +91,16 @@ export default function DispatcherTerminal() {
     };
 
     return (
-        <main className="min-h-screen bg-neutral-950 text-neutral-100 p-8 font-sans selection:bg-red-900/50 overflow-hidden">
-            <div className="max-w-6xl mx-auto space-y-6">
-                <header className="border-b border-neutral-800 pb-4 flex justify-between items-end">
+        <main className="min-h-screen bg-neutral-950 text-neutral-100 p-4 md:p-8 font-sans selection:bg-red-900/50 flex flex-col">
+            <div className="w-full max-w-[96%] mx-auto flex-1 flex flex-col space-y-6">
+                <header className="border-b border-neutral-800 pb-4 flex flex-col md:flex-row md:justify-between md:items-end gap-4 shrink-0">
                     <div>
                         <h1 className="text-4xl font-bold tracking-tight text-white flex items-center gap-3" aria-label="Investigator Terminal Title">
                             <Activity className="text-red-500 w-8 h-8" aria-hidden="true" /> INVESTIGATOR TERMINAL
                         </h1>
                         <p className="text-neutral-400 mt-2 font-mono text-sm uppercase tracking-widest">MediBridge :: Sector 7 Orchestrator</p>
                     </div>
-                    <div className="flex gap-4 items-center">
+                    <div className="flex flex-wrap gap-4 items-center">
                         <Button variant="ghost" className="text-neutral-500 hover:text-white font-mono text-xs" onClick={loadDemoScenario}>
                             <Zap className="w-3 h-3 mr-2 text-yellow-500"/> [ LOAD DEMO ]
                         </Button>
@@ -113,30 +112,30 @@ export default function DispatcherTerminal() {
                     </div>
                 </header>
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 flex-1 min-h-0">
                     {/* Input Panel */}
-                    <Card className="bg-neutral-900/50 border-neutral-800 shadow-2xl shadow-red-900/5 backdrop-blur-sm relative overflow-hidden">
-                        <CardHeader className="border-b border-neutral-800/50 pb-4">
+                    <Card className="bg-neutral-900/50 border-neutral-800 shadow-2xl shadow-red-900/5 backdrop-blur-sm flex flex-col h-full">
+                        <CardHeader className="border-b border-neutral-800/50 pb-4 shrink-0">
                             <CardTitle className="text-white text-lg font-mono flex items-center gap-2">
                                 <UploadCloud className="w-5 h-5 text-neutral-400" aria-hidden="true" /> MULTIMODAL INGEST
                             </CardTitle>
                         </CardHeader>
-                        <CardContent className="pt-6">
-                            <form onSubmit={handlePropose} className="space-y-6" aria-label="Multimodal Triage Form">
-                                <div className="space-y-3">
+                        <CardContent className="pt-6 flex-1 flex flex-col min-h-0 overflow-y-auto">
+                            <form onSubmit={handlePropose} className="space-y-6 flex-1 flex flex-col" aria-label="Multimodal Triage Form">
+                                <div className="space-y-3 flex-1 flex flex-col">
                                     <label htmlFor="notes-input" className="text-xs font-bold text-neutral-500 uppercase tracking-widest block">Field Transmissions (Text)</label>
                                     <Textarea 
                                         id="notes-input"
                                         aria-label="Enter messy field notes"
                                         placeholder="Awaiting unstructured field notes... (Press Cmd+Shift+D for Demo)" 
-                                        className="min-h-[160px] bg-black/40 border-neutral-800 text-neutral-200 focus-visible:ring-red-500/50 font-mono text-sm resize-none leading-relaxed"
+                                        className="flex-1 min-h-[160px] bg-black/40 border-neutral-800 text-neutral-200 focus-visible:ring-red-500/50 font-mono text-sm resize-none leading-relaxed"
                                         value={notes}
                                         onChange={(e) => setNotes(e.target.value)}
                                         disabled={status !== 'idle' && status !== 'error' && status !== 'security_breach'}
                                     />
                                 </div>
                                 
-                                <div className="space-y-3">
+                                <div className="space-y-3 shrink-0">
                                     <label className="text-xs font-bold text-neutral-500 uppercase tracking-widest block">Encrypted Media (Audio/Images)</label>
                                     <div className="flex items-center gap-4">
                                         <Button 
@@ -166,7 +165,7 @@ export default function DispatcherTerminal() {
                                 <Button 
                                     type="submit" 
                                     aria-label="Initiate AI Orchestration Proposal"
-                                    className="w-full bg-red-700 hover:bg-red-600 text-white font-bold tracking-widest transition-all uppercase h-14"
+                                    className="w-full shrink-0 bg-red-700 hover:bg-red-600 text-white font-bold tracking-widest transition-all uppercase h-14 mt-auto"
                                     disabled={status === 'processing_proposal' || status === 'proposed' || status === 'authorizing' || status === 'success' || (!notes.trim() && files.length === 0 && !demoFiles)}
                                 >
                                     {status === 'processing_proposal' ? '>> INGESTING STREAM & RUNNING SAFETY SHIELD...' : 
@@ -177,13 +176,13 @@ export default function DispatcherTerminal() {
                     </Card>
 
                     {/* Results Panel */}
-                    <Card className="bg-neutral-900/50 border-neutral-800 shadow-2xl shadow-blue-900/5 backdrop-blur-sm" aria-live="polite">
-                        <CardHeader className="border-b border-neutral-800/50 pb-4">
+                    <Card className="bg-neutral-900/50 border-neutral-800 shadow-2xl shadow-blue-900/5 backdrop-blur-sm flex flex-col h-full min-h-[500px]" aria-live="polite">
+                        <CardHeader className="border-b border-neutral-800/50 pb-4 shrink-0">
                             <CardTitle className="text-white text-lg font-mono flex items-center gap-2">
                                 <Server className="w-5 h-5 text-neutral-400" aria-hidden="true" /> SYSTEM OUTPUT
                             </CardTitle>
                         </CardHeader>
-                        <CardContent className="pt-6 relative min-h-[400px]">
+                        <CardContent className="p-0 flex-1 relative overflow-hidden">
                             <AnimatePresence mode="wait">
                                 {status === 'idle' && (
                                     <motion.div key="idle" {...anim} className="absolute inset-0 flex items-center justify-center text-neutral-600 font-mono text-sm">
@@ -192,7 +191,7 @@ export default function DispatcherTerminal() {
                                 )}
 
                                 {status === 'processing_proposal' && (
-                                    <motion.div key="processing" {...anim} className="absolute inset-6 space-y-6" aria-label="Processing Request">
+                                    <motion.div key="processing" {...anim} className="absolute inset-0 p-6 space-y-6" aria-label="Processing Request">
                                         <motion.div animate={{ opacity: [0.5, 1, 0.5] }} transition={{ repeat: Infinity, duration: 1.5 }} className="h-4 bg-red-900/20 rounded w-1/4"></motion.div>
                                         <motion.div animate={{ opacity: [0.5, 1, 0.5] }} transition={{ repeat: Infinity, duration: 1.5, delay: 0.2 }} className="h-32 bg-neutral-800/50 rounded w-full border border-neutral-800"></motion.div>
                                         <motion.div animate={{ opacity: [0.5, 1, 0.5] }} transition={{ repeat: Infinity, duration: 1.5, delay: 0.4 }} className="h-24 bg-neutral-800/50 rounded w-full border border-neutral-800"></motion.div>
@@ -200,7 +199,7 @@ export default function DispatcherTerminal() {
                                 )}
 
                                 {status === 'security_breach' && (
-                                    <motion.div key="breach" {...anim} className="absolute inset-6 p-6 bg-red-950 border-2 border-red-600 text-red-200 rounded-lg flex flex-col gap-4 items-center text-center shadow-[0_0_50px_rgba(220,38,38,0.3)]">
+                                    <motion.div key="breach" {...anim} className="absolute inset-0 m-6 p-6 bg-red-950 border-2 border-red-600 text-red-200 rounded-lg flex flex-col gap-4 items-center justify-center text-center shadow-[0_0_50px_rgba(220,38,38,0.3)]">
                                         <ShieldAlert className="w-16 h-16 text-red-500 animate-pulse" aria-hidden="true" />
                                         <div>
                                             <h4 className="font-black text-red-500 font-mono text-2xl tracking-widest">SECURITY BREACH</h4>
@@ -211,7 +210,7 @@ export default function DispatcherTerminal() {
                                 )}
 
                                 {status === 'error' && result?.error && !result.isSecurityBreach && (
-                                    <motion.div key="error" {...anim} className="absolute inset-6 p-4 bg-yellow-950/50 border border-yellow-900 text-yellow-200 rounded-md flex gap-3 items-start h-fit">
+                                    <motion.div key="error" {...anim} className="absolute inset-0 m-6 p-4 bg-yellow-950/50 border border-yellow-900 text-yellow-200 rounded-md flex gap-3 items-start h-fit">
                                         <AlertTriangle className="shrink-0 mt-0.5" aria-hidden="true" />
                                         <div>
                                             <h4 className="font-semibold text-yellow-500 font-mono">SYSTEM NOTICE</h4>
@@ -221,13 +220,16 @@ export default function DispatcherTerminal() {
                                 )}
 
                                 {(status === 'proposed' || status === 'authorizing' || status === 'success') && result?.triageData && (
-                                    <motion.div key="success" {...anim} className="absolute inset-6 space-y-6 w-full">
-                                        <div className="space-y-2">
+                                    <motion.div key="success" {...anim} className="absolute inset-0 flex flex-col p-6 overflow-hidden">
+                                        
+                                        {/* Scrollable Output Section */}
+                                        <div className="flex-1 overflow-y-auto pr-4 space-y-4">
                                             <h3 className="text-xs font-bold text-blue-500 uppercase tracking-widest flex flex-col md:flex-row md:justify-between items-start md:items-center gap-2">
                                                 <span>AI Synthesis Proposal</span>
                                                 <span className="text-neutral-500 flex items-center gap-1 shrink-0"><ShieldCheck className="w-3 h-3 text-green-500"/> Verified Safe</span>
                                             </h3>
-                                            <div className="bg-black/60 p-5 rounded-md border border-neutral-800 space-y-4">
+                                            
+                                            <div className="bg-black/60 p-5 rounded-md border border-neutral-800 space-y-4 w-full">
                                                 <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4 border-b border-neutral-800/50 pb-4">
                                                     <div className="flex-1 min-w-0">
                                                         <p className="text-xs text-neutral-500 uppercase font-bold mb-1">Vitals</p>
@@ -235,7 +237,7 @@ export default function DispatcherTerminal() {
                                                     </div>
                                                     <div className="sm:text-right shrink-0">
                                                         <p className="text-xs text-neutral-500 uppercase font-bold mb-1">Confidence</p>
-                                                        <p className="font-mono text-green-400 text-xl">{result.triageData.confidenceScore}%</p>
+                                                        <p className="font-mono text-green-400 text-xl font-black">{result.triageData.confidenceScore}%</p>
                                                     </div>
                                                 </div>
 
@@ -244,7 +246,7 @@ export default function DispatcherTerminal() {
                                                         <p className="text-xs text-neutral-500 uppercase font-bold mb-2">Symptoms</p>
                                                         <div className="flex flex-wrap gap-2">
                                                             {result.triageData.extractedSymptoms.map((sym, i) => (
-                                                                <Badge key={i} variant="secondary" className="bg-neutral-800/80 text-neutral-300 font-mono text-xs break-words whitespace-normal text-left h-auto py-1">{sym}</Badge>
+                                                                <Badge key={i} variant="secondary" className="bg-neutral-800/80 text-neutral-300 font-mono text-xs break-words whitespace-normal text-left h-auto py-1 px-2">{sym}</Badge>
                                                             ))}
                                                         </div>
                                                     </div>
@@ -252,7 +254,7 @@ export default function DispatcherTerminal() {
                                                         <p className="text-xs text-neutral-500 uppercase font-bold mb-2">Required Resources</p>
                                                         <div className="flex flex-wrap gap-2">
                                                             {result.triageData.requiredResources.map((res, i) => (
-                                                                <Badge key={i} variant="outline" className="border-red-900/50 text-red-400 font-mono text-xs break-words whitespace-normal text-left h-auto py-1">{res}</Badge>
+                                                                <Badge key={i} variant="outline" className="border-red-900/50 text-red-400 font-mono text-xs break-words whitespace-normal text-left h-auto py-1 px-2">{res}</Badge>
                                                             ))}
                                                         </div>
                                                     </div>
@@ -260,8 +262,8 @@ export default function DispatcherTerminal() {
                                             </div>
                                         </div>
 
-                                        {/* ERP Proposal / HITL Action */}
-                                        <div className="space-y-2">
+                                        {/* Pinned Action Section */}
+                                        <div className="shrink-0 pt-4 mt-2 border-t border-neutral-800/50 space-y-2">
                                             <h3 className="text-xs font-bold text-yellow-500 uppercase tracking-widest flex items-center gap-2">
                                                 <Server className="w-3 h-3" /> ACTION PROPOSAL (REQUIRES AUTHORIZATION)
                                             </h3>
@@ -271,10 +273,10 @@ export default function DispatcherTerminal() {
                                             >
                                                 <div className="grid grid-cols-2 gap-2 mt-2">
                                                     <div className="flex items-center gap-2">
-                                                        <Ambulance className={`w-4 h-4 ${status === 'success' ? 'text-green-500' : 'text-yellow-500'}`} /> {result.erpData?.assignedAmbulance}
+                                                        <Ambulance className={`w-4 h-4 shrink-0 ${status === 'success' ? 'text-green-500' : 'text-yellow-500'}`} /> <span className="truncate">{result.erpData?.assignedAmbulance}</span>
                                                     </div>
                                                     <div className="flex items-center gap-2">
-                                                        <Activity className={`w-4 h-4 ${status === 'success' ? 'text-green-500' : 'text-yellow-500'}`} /> {result.erpData?.bedId}
+                                                        <Activity className={`w-4 h-4 shrink-0 ${status === 'success' ? 'text-green-500' : 'text-yellow-500'}`} /> <span className="truncate">{result.erpData?.bedId}</span>
                                                     </div>
                                                 </div>
                                                 
@@ -301,12 +303,13 @@ export default function DispatcherTerminal() {
 
                                                     {status === 'success' && (
                                                         <motion.div key="btn-success" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="flex items-center justify-center gap-2 mt-4 p-2 bg-green-900/30 rounded text-green-400 font-bold tracking-widest">
-                                                            <CheckCircle2 className="w-5 h-5" /> RESOURCES LOCKED
+                                                            <CheckCircle2 className="w-5 h-5 shrink-0" /> RESOURCES LOCKED
                                                         </motion.div>
                                                     )}
                                                 </AnimatePresence>
                                             </motion.div>
                                         </div>
+
                                     </motion.div>
                                 )}
                             </AnimatePresence>
