@@ -18,7 +18,6 @@ export async function generateShiftSummary(): Promise<{ success: boolean; summar
         }
 
         const dataDump = JSON.stringify(records);
-        
         const prompt = `You are an elite emergency medical analytics AI. Analyze the following recent dispatch records and provide a concise, 2-paragraph "Shift Summary Report" evaluating the ER's trauma load, common injury patterns, and resource bottlenecks. Do not use pleasantries. Output direct tactical analysis.\n\nDATA:\n${dataDump}`;
 
         const response = await ai.models.generateContent({
@@ -27,8 +26,9 @@ export async function generateShiftSummary(): Promise<{ success: boolean; summar
         });
 
         return { success: true, summary: response.text || "Report generation failed." };
-    } catch (error: unknown) {
+    } catch (error: any) {
         console.error("Analytics Error:", error);
-        return { success: false, error: "Failed to connect to Analytics Core." };
+        // Return the EXACT error to the UI so we can diagnose the Vercel issue
+        return { success: false, error: `Diagnostics: ${error.message || 'Unknown Server Error'}` };
     }
 }

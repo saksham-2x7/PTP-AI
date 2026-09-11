@@ -15,7 +15,6 @@ export async function chatWithGemini(history: ChatMessage[], newMessage: string)
     try {
         const systemPrompt = "You are the MediBridge Tactical Intelligence Assistant. You provide strict, accurate, and concise emergency medical protocols, hazmat procedures, and trauma guidelines to dispatchers. Speak in a clinical, authoritative, and fast-paced tone.";
         
-        // Construct prompt context from history
         const context = history.map(m => `${m.role.toUpperCase()}: ${m.content}`).join('\n');
         const finalPrompt = `${systemPrompt}\n\nCONVERSATION HISTORY:\n${context}\n\nUSER: ${newMessage}\nMODEL:`;
 
@@ -29,8 +28,9 @@ export async function chatWithGemini(history: ChatMessage[], newMessage: string)
         }
 
         return { success: true, reply: response.text };
-    } catch (error: unknown) {
+    } catch (error: any) {
         console.error("Intelligence Chat Error:", error);
-        return { success: false, error: "Failed to connect to Intelligence Core." };
+        // Return the EXACT error to the UI so we can diagnose the Vercel issue
+        return { success: false, error: `Diagnostics: ${error.message || 'Unknown Server Error'}` };
     }
 }
