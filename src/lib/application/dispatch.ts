@@ -1,5 +1,5 @@
 'use server';
-import { logAuditInteraction } from '../data/auditLogger';
+
 import { analyzeFieldNotes, TriageData } from '../ai/triage';
 import { verifySafety, SecurityError } from '../ai/safety';
 
@@ -16,21 +16,6 @@ export type DispatchResponse = {
 
 // In-Memory Rate Limiter (Anti-DDoS)
 const rateLimitMap = new Map<string, { count: number, resetTime: number }>();
-function checkRateLimit(ip: string = 'global'): boolean {
-    const now = Date.now();
-    const windowMs = 60000; // 1 minute
-    const maxRequests = 5;
-
-    let record = rateLimitMap.get(ip);
-    if (!record || now > record.resetTime) {
-        record = { count: 1, resetTime: now + windowMs };
-    } else {
-        record.count += 1;
-    }
-    
-    rateLimitMap.set(ip, record);
-    return record.count <= maxRequests;
-}
 
 export async function proposeDispatch(formData: FormData): Promise<DispatchResponse> {
     const notes = formData.get('notes') as string || '';

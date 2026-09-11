@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import { useState, useRef, useEffect } from 'react';
 import { proposeDispatch, confirmDispatch, DispatchResponse } from '@/lib/application/dispatch';
@@ -9,10 +10,6 @@ import { Activity, Server, Ambulance, UploadCloud, FileAudio, FileImage, ShieldC
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { CyberScanner } from '@/components/ui/CyberScanner';
 import { MCPMatrix } from '@/components/ui/MCPMatrix';
-import DOMPurify from 'isomorphic-dompurify';
-import dynamic from 'next/dynamic';
-
-const IncidentMap = dynamic(() => import('@/components/IncidentMap'), { ssr: false, loading: () => <div className="w-full h-48 bg-neutral-900 animate-pulse rounded-lg mt-4"></div> });
 
 export default function DispatcherTerminal() {
     const [notes, setNotes] = useState('');
@@ -22,6 +19,7 @@ export default function DispatcherTerminal() {
     const [result, setResult] = useState<DispatchResponse | null>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
     const [isListening, setIsListening] = useState(false);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const recognitionRef = useRef<any>(null);
 
     const toggleDictation = () => {

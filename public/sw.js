@@ -1,6 +1,6 @@
-self.addEventListener('install', (e) => {
+self.addEventListener('install', () => {
   console.log('[ServiceWorker] Install');
 });
-self.addEventListener('fetch', (e) => {
+self.addEventListener('fetch', () => {
   // Silent passthrough for offline capability check
 });

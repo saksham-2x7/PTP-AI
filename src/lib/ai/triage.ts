@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { GoogleGenAI, Type, Schema } from '@google/genai';
 import { z } from 'zod';
 

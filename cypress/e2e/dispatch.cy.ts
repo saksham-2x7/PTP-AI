@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 describe('ER Triage End-to-End Orchestration', () => {
   it('successfully analyzes field transmissions and simulates a dispatch', () => {

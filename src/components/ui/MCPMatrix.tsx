@@ -26,8 +26,7 @@ export const MCPMatrix = React.memo(function MCPMatrix({ isProcessing }: { isPro
 
   useEffect(() => {
     if (!isProcessing) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setActiveNodes([]);
+            setActiveNodes([]);
       return;
     }
 
