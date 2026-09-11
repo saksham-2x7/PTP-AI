@@ -32,7 +32,7 @@ export async function analyzeFieldNotes(formData: FormData): Promise<TriageData>
     const textNotes = formData.get('notes') as string || '';
     const mediaFiles = formData.getAll('media') as File[];
 
-    let contents: any[] = [{ text: `You are an expert ER triage AI. Analyze the multimodal paramedic inputs (notes and optional images/audio). Extract exact details. If invalid input, output severity 1 and 'Invalid Input' as a symptom.\n\nNotes: ${textNotes}` }];
+    const contents: Array<{text?: string, inlineData?: {data: string, mimeType: string}}> = [{ text: `You are an expert ER triage AI. Analyze the multimodal paramedic inputs (notes and optional images/audio). Extract exact details. If invalid input, output severity 1 and 'Invalid Input' as a symptom.\n\nNotes: ${textNotes}` }];
 
     // Filter out mock UI files (tiny size) or invalid MIME types before sending to Gemini API
     for (const file of mediaFiles) {

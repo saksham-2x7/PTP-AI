@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { AlertTriangle, Activity, Server, Clock, Ambulance, UploadCloud, FileAudio, FileImage, ShieldCheck, ShieldAlert, CheckCircle2, Zap } from 'lucide-react';
+import { AlertTriangle, Activity, Server, Ambulance, UploadCloud, FileAudio, FileImage, ShieldCheck, ShieldAlert, CheckCircle2, Zap } from 'lucide-react';
 import Link from 'next/link';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 
@@ -36,7 +36,7 @@ export default function DispatcherTerminal() {
         return () => window.removeEventListener('keydown', handleKeyDown);
     }, []);
 
-    const loadDemoScenario = () => {
+    function loadDemoScenario() {
         setNotes("Dispatch this is unit 4, mass casualty incident on I-95. 3 vehicles involved. Priority 1 is a 45yo male, severe crush injury to chest, BP dropping fast 80 over 50, HR 135. Suspect tension pneumothorax. Priority 2 is female, 30s, head lac but conscious. Need trauma bay ready for P1, possible blood trans O-negative. Sending scene photo and dash audio.");
         setDemoFiles(true);
         setStatus('idle');
