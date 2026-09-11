@@ -37,7 +37,8 @@ export async function analyzeFieldNotes(formData: FormData): Promise<TriageData>
         required: ["patientVitals", "severityLevel", "extractedSymptoms", "requiredResources", "confidenceScore", "evidenceExtracted"]
     } as Schema;
 
-    const textNotes = formData.get('notes') as string || '';
+    const rawText = formData.get('notes') as string || '';
+    const textNotes = rawText.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, ''); // XSS Sanitizer
     const mediaFiles = formData.getAll('media') as File[];
 
     const parts: any[] = [{ text: `You are an expert ER triage AI. Analyze the multimodal paramedic inputs (notes and images/audio). Extract exact details. If invalid input, output severity 1 and 'Invalid Input' as a symptom.\n\nNotes: ${textNotes}` }];

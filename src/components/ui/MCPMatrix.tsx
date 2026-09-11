@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Server, Database, Globe, Shield } from 'lucide-react';
 
@@ -21,7 +21,7 @@ const MCP_NODES = [
   { name: "mcp://national-grid/power-status", icon: Server, color: "text-yellow-400" }
 ];
 
-export function MCPMatrix({ isProcessing }: { isProcessing: boolean }) {
+export const MCPMatrix = React.memo(function MCPMatrix({ isProcessing }: { isProcessing: boolean }) {
   const [activeNodes, setActiveNodes] = useState<number[]>([]);
 
   useEffect(() => {
@@ -75,4 +75,4 @@ export function MCPMatrix({ isProcessing }: { isProcessing: boolean }) {
       </div>
     </div>
   );
-}
+});

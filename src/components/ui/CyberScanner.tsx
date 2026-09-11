@@ -1,7 +1,8 @@
 'use client';
+import React from 'react';
 import { motion } from 'framer-motion';
 
-export function CyberScanner() {
+export const CyberScanner = React.memo(function CyberScanner() {
   return (
     <div className="relative w-full h-48 bg-black/40 border border-white/5 rounded-lg overflow-hidden flex items-center justify-center">
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px]" />
@@ -27,4 +28,4 @@ export function CyberScanner() {
       </div>
     </div>
   );
-}
+});
